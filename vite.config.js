@@ -5,6 +5,7 @@ import viteCompression from 'vite-plugin-compression'
 import Sitemap from 'vite-plugin-sitemap'
 
 export default defineConfig({
+  base: "/my-notes/",
   envDir: "./env",
   plugins: [
     vue(),
@@ -15,7 +16,7 @@ export default defineConfig({
       algorithm: 'gzip',
       ext: '.gz'
     }),
-    Sitemap({ hostname: 'http://localhost:4173' })
+    Sitemap({ hostname: 'https://halifatick.github.io/my-notes/' })
   ],
   resolve: {
     alias: {
