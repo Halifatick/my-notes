@@ -1,0 +1,63 @@
+@use "sass:map";
+@use "variables";
+@use "maps";
+
+$utilities: () !default;
+$utilities: map.merge(
+                (
+                        "background-color": (
+                                property: background-color,
+                                class: bg,
+                                local-vars: (
+                                        "bg-opacity": 1
+                                ),
+                                values: map.merge(
+                                                maps.$utilities-bg-colors,
+                                                (
+                                                        "transparent": transparent,
+                                                )
+                                )
+                        ),
+                        "bg-opacity": (
+                                css-var: true,
+                                class: bg-opacity,
+                                values: (
+                                        10: .1,
+                                        25: .25,
+                                        50: .5,
+                                        75: .75,
+                                        100: 1
+                                )
+                        ),
+                        "line-height": (
+                                property: line-height,
+                                class: lh,
+                                values: (
+                                        1: variables.$line-height-1,
+                                        sm: variables.$line-height-sm,
+                                        base: variables.$line-height-base,
+                                        md: variables.$line-height-md,
+                                        lg: variables.$line-height-lg,
+                                )
+                        ),
+                        "rounded": (
+                                property: border-radius,
+                                class: rounded,
+                                values: (
+                                        null: var(--border-radius),
+                                        0: 0,
+                                        1: var(--border-radius-sm),
+                                        2: var(--border-radius),
+                                        3: var(--border-radius-lg),
+                                        4: var(--border-radius-xl),
+                                        5: var(--border-radius-2xl),
+                                        6: var(--border-radius-xxl),
+                                        7: var(--border-radius-2xxl),
+                                        8: var(--border-radius-2lg),
+                                        circle: 50%,
+                                        pill: var(--border-radius-pill)
+                                )
+                        ),
+                ),
+                $utilities
+);

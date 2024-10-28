@@ -1,0 +1,33 @@
+@use "sass:list";
+@use "sass:math";
+@use "sass:meta";
+@use "../variables";
+
+@function valid-radius($radius) {
+  $return: ();
+  @each $value in $radius {
+    @if meta.type-of($value) == number {
+      $return: list.append($return, math.max($value, 0));
+    } @else {
+      $return: list.append($return, $value);
+    }
+  }
+  @return $return;
+}
+
+@mixin border-radius($radius: variables.$border-radius, $fallback-border-radius: false) {
+  border-radius: valid-radius($radius);
+  @if $fallback-border-radius != false {
+    border-radius: $fallback-border-radius;
+  }
+}
+
+@mixin border-top-radius($radius: variables.$border-radius) {
+  border-top-left-radius: valid-radius($radius);
+  border-top-right-radius: valid-radius($radius);
+}
+
+@mixin border-bottom-radius($radius: variables.$border-radius) {
+  border-bottom-right-radius: valid-radius($radius);
+  border-bottom-left-radius: valid-radius($radius);
+}

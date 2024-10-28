@@ -1,2 +1,152 @@
+@use "fonts";
 @use "variables";
+@use "mixins/mixins";
+@use "root";
+@use "reboot";
+@use "containers";
+@use "buttons";
+@use "modal";
+@use "forms";
+@use "transition";
+@use "utilities/api";
 
+.min-h-dvh {
+  min-height: 100dvh;
+}
+
+.grid {
+  display: grid;
+}
+
+.flex {
+  display: flex;
+
+  &-auto {
+    flex: 1 1 auto;
+  }
+
+  &-none {
+    flex: none;
+  }
+
+  &-wrap {
+    flex-wrap: wrap;
+  }
+}
+
+svg {
+  //width: 100%;
+  //height: auto;
+}
+
+.top {
+  &-0 {
+    top: 0;
+  }
+
+  &-100 {
+    top: 100%;
+  }
+}
+
+.right-0 {
+  right: 0;
+}
+
+.bottom-0 {
+  bottom: 0;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.svg-container {
+  max-height: 287px;
+
+  @media (min-width: 768px) {
+    max-height: 540px;
+  }
+
+  @media (min-width: 1200px) {
+    max-height: 602px;
+  }
+
+  @media (min-width: 1600px) {
+    max-height: 862px;
+  }
+
+  & svg {
+    width: 100%;
+    height: auto;
+
+    @media (min-width: 2310px) {
+      height: calc(100dvh - 138px);
+    }
+  }
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.z-5 {
+  z-index: 5;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.inset-0 {
+  inset: 0;
+}
+
+.origin-top-right {
+  transform-origin: top right;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.ring-1 {
+  box-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+}
+
+.ring-black	{
+  --tw-ring-color: rgba(0, 0, 0, .5);
+}
+
+.focus\:outline-none:focus {
+  outline: 2px solid #0000;
+  outline-offset: 2px;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+p.text-truncate {
+  &-multiline {
+    @include mixins.max-lines(9, 1.6, 1.25rem);
+
+    @media (max-width: 767.98px) {
+      @include mixins.max-lines(9, 1.5, 1rem);
+    }
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+* {
+  //outline: 1px solid variables.$red;
+}

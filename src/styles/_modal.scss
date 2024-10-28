@@ -1,0 +1,15 @@
+@use "variables";
+@use "mixins/border-radius";
+
+.modal {
+  --modal-color: #{variables.$modal-content-color};
+  --modal-bg: #{variables.$modal-content-bg};
+  --modal-border-radius: #{variables.$modal-content-border-radius};
+
+  color: var(--modal-color);
+  pointer-events: auto;
+  background-color: var(--modal-bg);
+  background-clip: padding-box;
+  @include border-radius.border-radius(var(--modal-border-radius));
+  outline: 0;
+}

@@ -1,0 +1,131 @@
+@use "sass:meta";
+@use "../variables";
+
+@mixin generate-spacing-classes($property, $media: false) {
+  $prefix: if($property == margin, 'm', 'p');
+
+  @each $name, $value in variables.$spacings {
+    @each $variant, $rules in (
+            '': (#{$property}),
+            'x': (#{$property}-left, #{$property}-right),
+            'y': (#{$property}-top, #{$property}-bottom),
+            't': (#{$property}-top),
+            'r': (#{$property}-right),
+            'b': (#{$property}-bottom),
+            'l': (#{$property}-left),
+            's': (#{$property}-inline-start),
+            'e': (#{$property}-inline-end)
+    ) {
+      @include apply-rules($prefix, $variant, $name, $rules, $value);
+    }
+  }
+
+  @each $breakpoint, $min-width in variables.$grid-breakpoints {
+    @if $min-width != null {
+      @media (min-width: #{$min-width}) {
+        @each $name, $value in variables.$spacings {
+          @each $variant, $rules in (
+                  '': (#{$property}),
+                  'x': (#{$property}-left, #{$property}-right),
+                  'y': (#{$property}-top, #{$property}-bottom),
+                  't': (#{$property}-top),
+                  'r': (#{$property}-right),
+                  'b': (#{$property}-bottom),
+                  'l': (#{$property}-left),
+                  's': (#{$property}-inline-start),
+                  'e': (#{$property}-inline-end)
+          ) {
+            @include apply-rules($prefix, $variant, $name, $rules, $value, $breakpoint);
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin apply-rules($prefix, $variant, $name, $rules, $value, $breakpoint: null) {
+  $class-name: if($breakpoint != null, "#{$prefix}#{$variant}-#{$breakpoint}-#{$name}", "#{$prefix}#{$variant}-#{$name}");
+
+  .#{$class-name} {
+    @each $rule in $rules {
+      #{$rule}: $value;
+    }
+  }
+}
+
+@mixin generate-text-color-classes() {
+  @each $name, $color in variables.$colors {
+    .text-#{$name} {
+      color: $color;
+    }
+  }
+}
+
+@mixin generate-utility-classes($variable-map, $prefix, $property, $media: true) {
+  @each $name, $value in $variable-map {
+    @include apply-utility-rules($name, $value, $prefix, $property);
+  }
+
+  @if $media {
+    @each $breakpoint, $min-width in variables.$grid-breakpoints {
+      @if $min-width != null {
+        @media (min-width: #{$min-width}) {
+          @each $name, $value in $variable-map {
+            @include apply-utility-rules($name, $value, $prefix, $property, $breakpoint);
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin apply-utility-rules($name, $value, $prefix, $property, $breakpoint: null) {
+  $def: if($prefix != null, "-", null);
+  $class-name: if($breakpoint != null,
+          "#{$prefix}#{$def}#{$breakpoint}-#{$name}",
+          "#{$prefix}#{$def}#{$name}"
+  );
+
+  .#{$class-name} {
+    @if $property == "align-items" {
+      align-items: $value;
+    } @else if $property == "text-align" {
+      text-align: $value;
+    } @else if $property == "justify-content" {
+      justify-content: $value;
+    } @else if $property == "gap" {
+      gap: $value;
+    } @else if $property == "width" {
+      width: $value;
+    } @else if $property == "height" {
+      height: $value;
+    } @else if $property == "position" {
+      position: $value;
+    } @else if $property == "flex-direction" {
+      flex-direction: $value;
+    }
+  }
+}
+
+@mixin max-lines($lines: 3, $line-height: 1, $font-size: 1rem) {
+  $height: $line-height * $font-size * $lines;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+  max-height: $height;
+}
+
+@include generate-text-color-classes();
+@include generate-spacing-classes(margin);
+@include generate-spacing-classes(padding);
+@include generate-utility-classes(variables.$align-items, "items", "align-items");
+@include generate-utility-classes(variables.$align-texts, "text", "text-align");
+@include generate-utility-classes(variables.$justify-contents, "justify", "justify-content");
+@include generate-utility-classes(variables.$gaps, "gap", "gap");
+@include generate-utility-classes(variables.$sizes, "w", "width");
+@include generate-utility-classes(variables.$sizes, "h", "height");
+@include generate-utility-classes(variables.$positions, null, "position", false);
+@include generate-utility-classes(variables.$flexDirections, "flex", "flex-direction");

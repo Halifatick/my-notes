@@ -1,0 +1,68 @@
+@use "sass:meta";
+@use "variables";
+@use "rfs";
+@use "maps";
+
+:root {
+
+  @each $color, $value in variables.$colors {
+    --#{$color}: #{$value};
+  }
+
+  @each $color, $value in maps.$theme-colors-rgb {
+    --#{$color}-rgb: #{$value};
+  }
+
+  --font-sans-serif: #{meta.inspect(variables.$font-family-sans-serif)};
+
+  --body-font-family: #{meta.inspect(variables.$font-family-base)};
+  @include rfs.rfs(variables.$font-size-base, --body-font-size);
+  --body-font-weight: #{variables.$font-weight-base};
+  --body-line-height: #{variables.$line-height-base};
+  @if variables.$body-text-align != null {
+    --body-text-align: #{variables.$body-text-align};
+  }
+  --body-color: #{variables.$body-color};
+  --body-bg: #{variables.$body-bg};
+
+  --heading-color: #{variables.$headings-color};
+
+  --link-color: #{variables.$link-color};
+  --link-color-rgb: #{variables.to-rgb(variables.$link-color)};
+  --link-decoration: #{variables.$link-decoration};
+  --link-hover-color: #{variables.$link-hover-color};
+  --link-hover-color-rgb: #{variables.to-rgb(variables.$link-hover-color)};
+  @if variables.$link-hover-decoration != null {
+    --link-hover-decoration: #{variables.$link-hover-decoration};
+  }
+
+  --border-width: #{variables.$border-width};
+  --border-style: #{variables.$border-style};
+  --border-color: #{variables.$border-color};
+  --border-color-translucent: #{variables.$border-color-translucent};
+
+  --border-radius: #{variables.$border-radius};
+  --border-radius-sm: #{variables.$border-radius-sm};
+  --border-radius-lg: #{variables.$border-radius-lg};
+  --border-radius-2lg: #{variables.$border-radius-2lg};
+  --border-radius-xl: #{variables.$border-radius-xl};
+  --border-radius-xxl: #{variables.$border-radius-xxl};
+  --border-radius-2xl: #{variables.$border-radius-2xl};
+  --border-radius-1\.5xxl: #{variables.$border-radius-1\.5xxl};
+  --border-radius-2xxl: #{variables.$border-radius-2xxl};
+  --border-radius-pill: #{variables.$border-radius-pill};
+
+  --box-shadow: #{variables.$box-shadow};
+  --box-shadow-sm: #{variables.$box-shadow-sm};
+  --box-shadow-lg: #{variables.$box-shadow-lg};
+  --box-shadow-inset: #{variables.$box-shadow-inset};
+
+  --focus-ring-width: #{variables.$focus-ring-width};
+  --focus-ring-opacity: #{variables.$focus-ring-opacity};
+  --focus-ring-color: #{variables.$focus-ring-color};
+
+  --form-valid-color: #{variables.$form-valid-color};
+  --form-valid-border-color: #{variables.$form-valid-border-color};
+  --form-invalid-color: #{variables.$form-invalid-color};
+  --form-invalid-border-color: #{variables.$form-invalid-border-color};
+}

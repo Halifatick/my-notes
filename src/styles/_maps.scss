@@ -1,0 +1,22 @@
+@use "sass:map";
+@use "sass:list";
+@use "sass:meta";
+@use "variables";
+
+@function map-loop($map, $module, $func, $args...) {
+  $_map: ();
+
+  @each $key, $value in $map {
+    $_args: ();
+    @each $arg in $args {
+      $_args: list.append($_args, if($arg == "$key", $key, if($arg == "$value", $value, $arg)));
+    }
+
+    $_map: map.merge($_map, ($key: meta.call(map.get(meta.module-functions($module), $func), $_args...)));
+  }
+
+  @return $_map;
+}
+
+$theme-colors-rgb: map-loop(variables.$theme-colors, "variables", "to-rgb", "$value") !default;
+$utilities-bg-colors: map-loop($theme-colors-rgb, "variables", "rgba-css-var", "$key", "bg") !default;

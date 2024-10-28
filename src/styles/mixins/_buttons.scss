@@ -1,0 +1,51 @@
+@use "sass:color";
+@use "../variables";
+@use "../rfs";
+
+@mixin button-variant(
+  $background,
+  $background-hover,
+  $background-pressed,
+  $background-disabled,
+  $border,
+  $border-hover,
+  $border-pressed,
+  $border-disabled,
+  $color-variant,
+  $color-hover,
+  $color-pressed,
+  $color-disabled,
+
+  $color: $color-variant,
+  $hover-background: $background-hover,
+  $hover-border: $border-hover,
+  $hover-color: $color-hover,
+  $active-background: $background-pressed,
+  $active-border: $border-pressed,
+  $active-color: $color-pressed,
+  $disabled-background: $background-disabled,
+  $disabled-border: $border-disabled,
+  $disabled-color: $color-disabled
+) {
+  --btn-color: #{$color};
+  --btn-bg: #{$background};
+  --btn-border-color: #{$border};
+  --btn-hover-color: #{$hover-color};
+  --btn-hover-bg: #{$hover-background};
+  --btn-hover-border-color: #{$hover-border};
+  --btn-focus-shadow-rgb: #{variables.to-rgb(color.mix($color, $border, 15%))};
+  --btn-active-color: #{$active-color};
+  --btn-active-bg: #{$active-background};
+  --btn-active-border-color: #{$active-border};
+  --btn-active-shadow: #{variables.$btn-active-box-shadow};
+  --btn-disabled-color: #{$disabled-color};
+  --btn-disabled-bg: #{$disabled-background};
+  --btn-disabled-border-color: #{$disabled-border};
+}
+
+@mixin button-size($padding-y, $padding-x, $font-size, $border-radius) {
+  --btn-padding-y: #{$padding-y};
+  --btn-padding-x: #{$padding-x};
+  @include rfs.rfs($font-size, --btn-font-size);
+  --btn-border-radius: #{$border-radius};
+}

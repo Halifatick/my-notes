@@ -1,0 +1,47 @@
+@use "variables";
+@use "rfs";
+@use "mixins/border-radius";
+@use "mixins/transition";
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: variables.$input-padding-top variables.$input-padding-right variables.$input-padding-bottom variables.$input-padding-left;
+  @include rfs.font-size(variables.$input-font-size);
+  font-weight: variables.$input-font-weight;
+  line-height: variables.$input-line-height;
+  color: variables.$input-color;
+  appearance: none;
+  background-color: variables.$input-bg;
+  background-clip: padding-box;
+  border: variables.$input-border-width solid variables.$input-border-color;
+  @include border-radius.border-radius(variables.$input-border-radius);
+  @include transition.transition(variables.$input-transition);
+
+  &:focus, &:hover, &:active {
+    border-color: variables.$input-focus-border-color;
+    outline: 0;
+  }
+
+  &::placeholder {
+    color: variables.$input-placeholder-color;
+    opacity: 1;
+  }
+
+  & + .password-icon {
+    cursor: pointer;
+    position: absolute;
+    right: 1.75rem;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+}
+
+textarea {
+  &.form-control {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    min-height: variables.add(variables.$input-line-height * 1em, variables.add(variables.$input-padding-y * 2, variables.$input-height-border, false));
+    resize: none;
+  }
+}

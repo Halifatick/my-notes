@@ -1,0 +1,41 @@
+@use "sass:map";
+@use "sass:meta";
+@use "../variables";
+@use "../mixins/breakpoints";
+@use "../utilities";
+@use "../mixins/utilities" as utilitiesMixin;
+@use "../rfs";
+
+@each $breakpoint in map.keys(variables.$grid-breakpoints) {
+  @include breakpoints.media-breakpoint-up($breakpoint) {
+    $infix: breakpoints.breakpoint-infix($breakpoint, variables.$grid-breakpoints);
+
+    @each $key, $utility in utilities.$utilities {
+      @if meta.type-of($utility) == "map" and (map.get($utility, responsive) or $infix == "") {
+        @include utilitiesMixin.generate-utility($utility, $infix);
+      }
+    }
+  }
+}
+
+@media (min-width: rfs.$rfs-mq-value) {
+  @each $breakpoint in map.keys(variables.$grid-breakpoints) {
+    $infix: breakpoints.breakpoint-infix($breakpoint, variables.$grid-breakpoints);
+
+    @if (map.get(variables.$grid-breakpoints, $breakpoint) < rfs.$rfs-breakpoint) {
+      @each $key, $utility in utilities.$utilities {
+        @if meta.type-of($utility) == "map" and map.get($utility, rfs) and (map.get($utility, responsive) or $infix == "") {
+          @include utilitiesMixin.generate-utility($utility, $infix, true);
+        }
+      }
+    }
+  }
+}
+
+@media print {
+  @each $key, $utility in utilities.$utilities {
+    @if meta.type-of($utility) == "map" and map.get($utility, print) == true {
+      @include utilitiesMixin.generate-utility($utility, "-print");
+    }
+  }
+}
