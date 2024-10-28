@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://halifatick.github.io/my-notes/sitemap.xml
