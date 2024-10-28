@@ -9,16 +9,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.5.12",
+    "axios": "^1.7.7",
     "pinia": "^2.2.4",
+    "vue": "^3.5.12",
+    "vue-axios": "^3.5.2",
     "vue-router": "^4.4.5"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^6.0.0",
     "@vitejs/plugin-vue": "^5.1.4",
     "autoprefixer": "^10.4.20",
     "cross-env": "^7.0.3",
     "sass": "^1.80.3",
     "vite": "^5.4.9",
-    "vite-plugin-compression": "^0.5.1"
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-sitemap": "^0.7.1"
   }
 }

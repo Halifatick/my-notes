@@ -1,13 +1,9 @@
 import { fileURLToPath, URL } from 'node:url'
-import { resolve } from 'path'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import viteCompression from 'vite-plugin-compression'
+import Sitemap from 'vite-plugin-sitemap'
 
-const r = (filePath) => resolve(__dirname, filePath)
-
-// https://vite.dev/config/
 export default defineConfig({
   envDir: "./env",
   plugins: [
@@ -18,7 +14,8 @@ export default defineConfig({
       threshold: 10240,
       algorithm: 'gzip',
       ext: '.gz'
-    })
+    }),
+    Sitemap({ hostname: 'http://localhost:4173' })
   ],
   resolve: {
     alias: {
