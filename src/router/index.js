@@ -17,6 +17,13 @@ const router = createRouter({
 
 router.beforeEach(loadLayoutMiddleware)
 
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth) && localStorage.getItem('tokens') === null)
+        next({path: '/', params: { nextUrl: to.fullPath }})
+    else
+        next()
+})
+
 if (window && VITE_APP_ENABLE_DEBUG_UTILS) {
     window.$router = router
 }

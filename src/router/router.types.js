@@ -1,5 +1,6 @@
 export const RouteNamesEnum = {
-    home: 'ToDo List'
+    main: 'ToDo List',
+    profile: 'Профиль'
 }
 
 export const RouteNamesErrorEnum = {
