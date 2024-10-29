@@ -101,7 +101,7 @@ const handleOnClickSubmit = async () => {
         <div class="flex flex-col-reverse flex-md-row gap-3 gap-md-10 justify-between items-center">
           <div class="flex flex-wrap justify-center justify-xl-start justify-xxl-center gap-1"></div>
           <button type="button" class="btn btn-primary w-full w-md-auto text-center" @click="handleOnClickSubmit">
-            Вход
+            Добавить
           </button>
         </div>
         <div v-if="[404, 409].includes(errors.status)"
